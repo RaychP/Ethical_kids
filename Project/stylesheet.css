@@ -245,3 +245,38 @@ justify-content: space-around;
 .fixed-height-img {
   height: 300px; 
 }
+
+.form-container {
+  position: relative;
+  padding: 40px;
+  border-radius: 10px;
+  background-image: url('https://github.com/RaychP/Ethical_kids/blob/main/Project/images/noah-buscher-x8ZStukS2PM-unsplash.jpg?raw=true');
+  background-size: cover;
+  background-position: center;
+  overflow: hidden;
+}
+
+.form-container::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5); 
+  border-radius: inherit;
+}
+
+.form-container form {
+  position: relative;
+  z-index: 1;
+}
+
+.form-container h3 {
+  color: white
+}
+
+.btn-primary {
+  background-color: #4b4c4d;
+}
+
