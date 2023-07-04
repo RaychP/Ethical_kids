@@ -9,6 +9,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
   <link rel="stylesheet" href="stylesheet.css">
+  <script type="text/javascript" src="javasheet.js"></script>
 </head>
 
 <body>
@@ -21,7 +22,7 @@
     <div class="collapse navbar-collapse text-center" id="navbarNav">
       <ul class="navbar-nav ml-auto">
         <li class="nav-item active">
-          <a class="nav-link" href="Ethical kids HP">Home</a>
+          <a class="nav-link" href="index.html">Home</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="products.html">Products</a>
@@ -40,40 +41,49 @@
       </ul>
     </div>
   </nav>
-<div class="content-container mt-5">
+  <div class="content-container mt-5">
     <div class="container">
       <div class="d-flex justify-content-center mb-4">
         <h3 class="text-center mt-5">Our Products</h3>
       </div>
       <div class="row product-card">
         <div class="col-md-4">
-          <a href="#">
+          <a href="https://www.turtledovelondon.com/products/sew-and-grow-print-dungarees?variant=39943206535270" class="product-link">
             <div class="card">
-              <img src="product1.jpg" class="card-img-top" alt="Product 1">
+              <div class="image-container d-flex justify-content-center">
+                <img src="https://cdn.shopify.com/s/files/1/1076/3876/products/TDS2356_1800x1800.jpg?v=1675789298" class="card-img-top fixed-height-img" alt="organic dungarees">
+                <img src="https://cdn.shopify.com/s/files/1/1076/3876/products/TDS2356_lifestyle_1800x1800.jpg?v=1675789298" class="card-img-top hover-image fixed-height-img" alt="Product 1 Hover">
+              </div>
               <div class="card-body">
-                <h3 class="card-title text-center">Product 1</h3>
+                <h3 class="card-title text-center">Orgnic Sew and grow dungarees</h3>
                 <a href="#" class="btn btn-primary addToCart">Add to Basket</a>
               </div>
             </div>
           </a>
         </div>
         <div class="col-md-4">
-          <a href="#">
+          <a href="https://littlegreenradicals.com/collections/kids/products/embroidered-toadstool-classic-corduroy-dungarees" class="product-link">
             <div class="card">
-              <img src="product2.jpg" class="card-img-top" alt="Product 2">
+              <div class="image-container d-flex justify-content-center"> 
+                <img src="https://cdn.shopify.com/s/files/1/0258/8147/7195/products/A22-211-VIN-2000200072OW_1800x1800.jpg?v=1675274004" class="card-img-top fixed-height-img" alt="organic dungarees">
+                <img src="https://cdn.shopify.com/s/files/1/0258/8147/7195/products/AW22-211-VIN_2_1800x1800.jpg?v=1675274004" class="card-img-top hover-image fixed-height-img" alt="Product 1 Hover">
+              </div>
               <div class="card-body">
-                <h3 class="card-title text-center">Product 2</h3>
+                <h3 class="card-title text-center">Organic & Fairtrade corduroy dungarees</h3>
                 <a href="#" class="btn btn-primary addToCart">Add to Basket</a>
               </div>
             </div>
           </a>
-        </div>
+        </div>        
         <div class="col-md-4">
-          <a href="#">
+          <a href="https://organic-zoo.com/products/blue-nights-dungarees?_pos=3&_sid=c5951f7f5&_ss=r" class="product-link">
             <div class="card">
-              <img src="product3.jpg" class="card-img-top" alt="Product 3">
+              <div class="image-container d-flex justify-content-center"> 
+                <img src="https://organic-zoo.com/cdn/shop/products/BlueNightsDungareesFront-Edit_1350x1800.jpg?v=1677265280" class="card-img-top fixed-height-img" alt="organic dungarees">
+                <img src="https://organic-zoo.com/cdn/shop/products/721862C7-0FE6-46EF-B8BE-8757BD39F672SMALL_1350x1800.jpg?v=1677265280" class="card-img-top hover-image fixed-height-img" alt="Product 1 Hover">
+              </div>
               <div class="card-body">
-                <h3 class="card-title text-center">Product 3</h3>
+                <h3 class="card-title text-center">100% organic navy dungarees</h3>
                 <a href="#" class="btn btn-primary addToCart">Add to Basket</a>
               </div>
             </div>
@@ -81,8 +91,7 @@
         </div>
       </div>
     </div>
-  </div>
-
+  </div>  
   <footer class="bg-light">
     <div class="container text-center">
       <ul class="list-inline">
@@ -97,18 +106,16 @@
       <p class="text-muted">Ethical Kids © 2023</p>
     </div>
   </footer>
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/js/bootstrap.bundle.min.js"></script>
-  <script>
-    var addToCartButtons = document.querySelectorAll('.addToCart');
-    addToCartButtons.forEach(function(button) {
-      button.addEventListener('click', function() {
-        var cartItemCount = parseInt(document.getElementById('cartItemCount').textContent);
-        document.getElementById('cartItemCount').textContent = cartItemCount + 1;
-      });
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/js/bootstrap.bundle.min.js"></script>
+<script>
+  var addToCartButtons = document.querySelectorAll('.addToCart');
+  addToCartButtons.forEach(function(button) {
+    button.addEventListener('click', function() {
+      var cartItemCount = parseInt(document.getElementById('cartItemCount').textContent);
+      document.getElementById('cartItemCount').textContent = cartItemCount + 1;
     });
-  </script>
+  });
+</script>
 </body>
-
 </html>
