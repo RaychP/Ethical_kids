@@ -279,3 +279,35 @@ justify-content: space-around;
 .btn-primary {
   background-color: #4b4c4d;
 }
+
+* {
+  margin: 0;
+  padding: 0;
+}
+.imgbox {
+  display: grid;
+  height: 100%;
+}
+.center-fit {
+  max-width: 100%;
+  max-height: 100vh;
+  margin: auto;
+}
+.caption2 {
+  position: top;
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  font-size: large;
+  width: 100%;
+  left: 0;
+  top: 0;
+  text-align: center;
+  color: #60992d;
+}
+.caption2 span.border {
+  background-color: #6d98ba;
+  color: #fff;
+  padding: 5px;
+  font-size: 25px;
+  letter-spacing: 10px;
+  text-align: center;
+}
