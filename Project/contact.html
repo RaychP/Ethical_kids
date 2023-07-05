@@ -30,7 +30,7 @@
           <a class="nav-link" href="contact.html">Contact</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="Login.html">Login</a>
+          <a class="nav-link" href="login.html">Login</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="basket.html">
@@ -122,4 +122,9 @@
         button.addEventListener('click', addToBasket);
       });
 
-      var basketItems = localStorage.getItem('basketItems');
+      var basketItems = localStorage.getItem('basketItems') || '[]';
+    });
+  </script>
+</body>
+
+</html>

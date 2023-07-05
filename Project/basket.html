@@ -9,11 +9,6 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
   <link rel="stylesheet" href="stylesheet.css">
-  <style>
-    .basket-item {
-      margin-bottom: 20px;
-    }
-  </style>
 </head>
 
 <body>
@@ -49,12 +44,11 @@
   <div class="content-container mt-5">
     <div class="container">
       <h3 class="text-center mt-5">Basket</h3>
-      <div class="row" id="basketItems">
-        <p class="text-center">Basket is empty</p>
-      </div>
+      <div class="row" id="basketItems"></div>
       <div class="text-center mt-3">
         <a href="checkout.html" class="btn btn-primary">Proceed to Checkout</a>
       </div>
+      <div id="emptyBasketMessage" class="text-center mt-3">Basket is empty</div>
     </div>
   </div>
 
@@ -136,60 +130,57 @@
     function updateBasket() {
       var basketItems = localStorage.getItem('basketItems');
       var basketItemsContainer = document.getElementById('basketItems');
+      var emptyBasketMessage = document.getElementById('emptyBasketMessage');
   
       if (basketItems) {
         var items = JSON.parse(basketItems);
         basketItemsContainer.innerHTML = '';
   
-        if (items.length === 0) {
-          var emptyBasketText = document.createElement('p');
-          emptyBasketText.classList.add('text-center');
-          emptyBasketText.textContent = 'Basket is empty';
-          basketItemsContainer.appendChild(emptyBasketText);
-        } else {
-          items.forEach(function(item) {
-            var basketItem = document.createElement('div');
-            basketItem.classList.add('col-md-4', 'basket-item');
+        items.forEach(function(item) {
+          var basketItem = document.createElement('div');
+          basketItem.classList.add('col-md-4', 'basket-item');
   
-            var card = document.createElement('div');
-            card.classList.add('card');
+          var card = document.createElement('div');
+          card.classList.add('card');
   
-            var imageContainer = document.createElement('div');
-            imageContainer.classList.add('image-container', 'd-flex', 'justify-content-center');
+          var imageContainer = document.createElement('div');
+          imageContainer.classList.add('image-container', 'd-flex', 'justify-content-center');
   
-            var image = document.createElement('img');
-            image.src = item.image;
-            image.classList.add('card-img-top', 'fixed-height-img');
-            image.alt = item.title;
+          var image = document.createElement('img');
+          image.src = item.image;
+          image.classList.add('card-img-top', 'fixed-height-img');
+          image.alt = item.title;
   
-            imageContainer.appendChild(image);
+          imageContainer.appendChild(image);
   
-            var cardBody = document.createElement('div');
-            cardBody.classList.add('card-body');
+          var cardBody = document.createElement('div');
+          cardBody.classList.add('card-body');
   
-            var title = document.createElement('h3');
-            title.classList.add('card-title', 'text-center');
-            title.textContent = item.title;
+          var title = document.createElement('h3');
+          title.classList.add('card-title', 'text-center');
+          title.textContent = item.title;
   
-            var removeButton = document.createElement('button');
-            removeButton.classList.add('btn', 'btn-danger', 'removeFromCart');
-            removeButton.textContent = 'Remove from Basket';
-            removeButton.setAttribute('data-id', item.id);
+          var removeButton = document.createElement('button');
+          removeButton.classList.add('btn', 'btn-danger', 'removeFromCart');
+          removeButton.textContent = 'Remove from Basket';
+          removeButton.setAttribute('data-id', item.id);
   
-            cardBody.appendChild(title);
-            cardBody.appendChild(removeButton);
+          cardBody.appendChild(title);
+          cardBody.appendChild(removeButton);
   
-            card.appendChild(imageContainer);
-            card.appendChild(cardBody);
+          card.appendChild(imageContainer);
+          card.appendChild(cardBody);
   
-            basketItem.appendChild(card);
-            basketItemsContainer.appendChild(basketItem);
-          });
+          basketItem.appendChild(card);
+          basketItemsContainer.appendChild(basketItem);
+        });
   
-          attachRemoveFromCartListeners();
-        }
+        basketItemsContainer.style.display = 'block';
+        emptyBasketMessage.style.display = 'none';
+        attachRemoveFromCartListeners();
       } else {
-        basketItemsContainer.innerHTML = '<p class="text-center">Basket is empty</p>';
+        basketItemsContainer.style.display = 'none';
+        emptyBasketMessage.style.display = 'block';
       }
     }
   
