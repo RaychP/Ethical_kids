@@ -45,10 +45,10 @@
     <div class="container">
       <h3 class="text-center mt-5">Basket</h3>
       <div class="row" id="basketItems"></div>
-      <div class="text-center mt-3">
+      <div id="emptyBasketMessage" class="text-center mt-3">Basket is empty</div>
+      <div class="text-center mt-3" id="checkoutButtonContainer">
         <a href="checkout.html" class="btn btn-primary">Proceed to Checkout</a>
       </div>
-      <div id="emptyBasketMessage" class="text-center mt-3">Basket is empty</div>
     </div>
   </div>
 
@@ -67,152 +67,10 @@
     </div>
   </footer>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js
+
+"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/js/bootstrap.bundle.min.js"></script>
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      var cartItemCount = localStorage.getItem('cartItemCount');
-      if (!cartItemCount) {
-        localStorage.setItem('cartItemCount', '0');
-      }
-  
-      attachAddToBasketListeners();
-      updateCartItemCount();
-      updateBasket();
-    });
-  
-    function addToBasket(item) {
-      var basketItems = localStorage.getItem('basketItems');
-      var items = basketItems ? JSON.parse(basketItems) : [];
-      items.push(item);
-      localStorage.setItem('basketItems', JSON.stringify(items));
-      updateBasket();
-      incrementCartItemCount();
-    }
-  
-    function removeFromBasket(event) {
-      var itemId = event.target.getAttribute('data-id');
-      var basketItems = localStorage.getItem('basketItems');
-  
-      if (basketItems) {
-        var items = JSON.parse(basketItems);
-        var updatedItems = items.filter(function(item) {
-          return item.id !== itemId;
-        });
-  
-        localStorage.setItem('basketItems', JSON.stringify(updatedItems));
-        updateBasket();
-        decrementCartItemCount();
-      }
-    }
-  
-    function updateCartItemCount() {
-      var cartItemCount = localStorage.getItem('cartItemCount');
-      document.getElementById('cartItemCount').textContent = cartItemCount;
-    }
-  
-    function incrementCartItemCount() {
-      var cartItemCount = parseInt(localStorage.getItem('cartItemCount')) || 0;
-      cartItemCount++;
-      localStorage.setItem('cartItemCount', cartItemCount.toString());
-      updateCartItemCount();
-    }
-  
-    function decrementCartItemCount() {
-      var cartItemCount = parseInt(localStorage.getItem('cartItemCount')) || 0;
-      if (cartItemCount > 0) {
-        cartItemCount--;
-      }
-      localStorage.setItem('cartItemCount', cartItemCount.toString());
-      updateCartItemCount();
-    }
-  
-    function updateBasket() {
-      var basketItems = localStorage.getItem('basketItems');
-      var basketItemsContainer = document.getElementById('basketItems');
-      var emptyBasketMessage = document.getElementById('emptyBasketMessage');
-  
-      if (basketItems) {
-        var items = JSON.parse(basketItems);
-        basketItemsContainer.innerHTML = '';
-  
-        items.forEach(function(item) {
-          var basketItem = document.createElement('div');
-          basketItem.classList.add('col-md-4', 'basket-item');
-  
-          var card = document.createElement('div');
-          card.classList.add('card');
-  
-          var imageContainer = document.createElement('div');
-          imageContainer.classList.add('image-container', 'd-flex', 'justify-content-center');
-  
-          var image = document.createElement('img');
-          image.src = item.image;
-          image.classList.add('card-img-top', 'fixed-height-img');
-          image.alt = item.title;
-  
-          imageContainer.appendChild(image);
-  
-          var cardBody = document.createElement('div');
-          cardBody.classList.add('card-body');
-  
-          var title = document.createElement('h3');
-          title.classList.add('card-title', 'text-center');
-          title.textContent = item.title;
-  
-          var removeButton = document.createElement('button');
-          removeButton.classList.add('btn', 'btn-danger', 'removeFromCart');
-          removeButton.textContent = 'Remove from Basket';
-          removeButton.setAttribute('data-id', item.id);
-  
-          cardBody.appendChild(title);
-          cardBody.appendChild(removeButton);
-  
-          card.appendChild(imageContainer);
-          card.appendChild(cardBody);
-  
-          basketItem.appendChild(card);
-          basketItemsContainer.appendChild(basketItem);
-        });
-  
-        basketItemsContainer.style.display = 'block';
-        emptyBasketMessage.style.display = 'none';
-        attachRemoveFromCartListeners();
-      } else {
-        basketItemsContainer.style.display = 'none';
-        emptyBasketMessage.style.display = 'block';
-      }
-    }
-  
-    function attachAddToBasketListeners() {
-      var addToBasketButtons = document.querySelectorAll('.addToBasket');
-  
-      addToBasketButtons.forEach(function(button) {
-        button.addEventListener('click', function(event) {
-          var itemId = event.target.getAttribute('data-id');
-          var itemTitle = event.target.getAttribute('data-title');
-          var itemImage = event.target.getAttribute('data-image');
-  
-          var item = {
-            id: itemId,
-            title: itemTitle,
-            image: itemImage
-          };
-  
-          addToBasket(item);
-        });
-      });
-    }
-  
-    function attachRemoveFromCartListeners() {
-      var removeButtons = document.querySelectorAll('.removeFromCart');
-  
-      removeButtons.forEach(function(button) {
-        button.addEventListener('click', removeFromBasket);
-      });
-    }
-  </script>
-   
 </body>
 
 </html>
