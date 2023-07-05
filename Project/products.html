@@ -148,9 +148,8 @@
       button.addEventListener('click', addToBasket);
     });
 
-    var basketItems = localStorage.getItem('basketItems');
-    var count = basketItems ? JSON.parse(basketItems).length : 0;
-    updateCartItemCount(count);
+    localStorage.setItem('basketItems', '[]');
+    updateCartItemCount(0);
   });
 </script>
 </body>
