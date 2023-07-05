@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Ethical clothes for ethical kids!</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+  <link rel="stylesheet" href="stylesheet.css">
+  <style>
+    .basket-item {
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+    <a class="navbar-brand" href="#">Ethical Kids</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse text-center" id="navbarNav">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="index.html">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="products.html">Products</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="contact.html">Contact</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="Login.html">Login</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="basket.html">
+            <i class="ion-ios-cart"></i> <span id="cartItemCount">0</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="content-container mt-5">
+    <div class="container">
+      <h3 class="text-center mt-5">Basket</h3>
+      <div class="row" id="basketItems">
+        <p class="text-center">Basket is empty</p>
+      </div>
+      <div class="text-center mt-3">
+        <a href="checkout.html" class="btn btn-primary">Proceed to Checkout</a>
+      </div>
+    </div>
+  </div>
+
+  <footer class="bg-light">
+    <div class="container text-center">
+      <ul class="list-inline">
+        <li class="list-inline-item"><a href="#">Home</a></li>
+        <li class="list-inline-item"><a href="#">Blog</a></li>
+      </ul>
+      <div class="social">
+        <a href="https://www.instagram.com/babipur/"><i class="icon ion-social-instagram"></i></a>
+        <a href="https://pin.it/6kIUyH5"><i class="icon ion-social-pinterest"></i></a>
+        <a href="https://www.facebook.com/raspberryrepublic"><i class="icon ion-social-facebook"></i></a>
+      </div>
+      <p class="text-muted">Ethical Kids © 2023</p>
+    </div>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/js/bootstrap.bundle.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var cartItemCount = localStorage.getItem('cartItemCount');
+      if (!cartItemCount) {
+        localStorage.setItem('cartItemCount', '0');
+      }
+  
+      attachAddToBasketListeners();
+      updateCartItemCount();
+      updateBasket();
+    });
+  
+    function addToBasket(item) {
+      var basketItems = localStorage.getItem('basketItems');
+      var items = basketItems ? JSON.parse(basketItems) : [];
+      items.push(item);
+      localStorage.setItem('basketItems', JSON.stringify(items));
+      updateBasket();
+      incrementCartItemCount();
+    }
+  
+    function removeFromBasket(event) {
+      var itemId = event.target.getAttribute('data-id');
+      var basketItems = localStorage.getItem('basketItems');
+  
+      if (basketItems) {
+        var items = JSON.parse(basketItems);
+        var updatedItems = items.filter(function(item) {
+          return item.id !== itemId;
+        });
+  
+        localStorage.setItem('basketItems', JSON.stringify(updatedItems));
+        updateBasket();
+        decrementCartItemCount();
+      }
+    }
+  
+    function updateCartItemCount() {
+      var cartItemCount = localStorage.getItem('cartItemCount');
+      document.getElementById('cartItemCount').textContent = cartItemCount;
+    }
+  
+    function incrementCartItemCount() {
+      var cartItemCount = parseInt(localStorage.getItem('cartItemCount')) || 0;
+      cartItemCount++;
+      localStorage.setItem('cartItemCount', cartItemCount.toString());
+      updateCartItemCount();
+    }
+  
+    function decrementCartItemCount() {
+      var cartItemCount = parseInt(localStorage.getItem('cartItemCount')) || 0;
+      if (cartItemCount > 0) {
+        cartItemCount--;
+      }
+      localStorage.setItem('cartItemCount', cartItemCount.toString());
+      updateCartItemCount();
+    }
+  
+    function updateBasket() {
+      var basketItems = localStorage.getItem('basketItems');
+      var basketItemsContainer = document.getElementById('basketItems');
+  
+      if (basketItems) {
+        var items = JSON.parse(basketItems);
+        basketItemsContainer.innerHTML = '';
+  
+        if (items.length === 0) {
+          var emptyBasketText = document.createElement('p');
+          emptyBasketText.classList.add('text-center');
+          emptyBasketText.textContent = 'Basket is empty';
+          basketItemsContainer.appendChild(emptyBasketText);
+        } else {
+          items.forEach(function(item) {
+            var basketItem = document.createElement('div');
+            basketItem.classList.add('col-md-4', 'basket-item');
+  
+            var card = document.createElement('div');
+            card.classList.add('card');
+  
+            var imageContainer = document.createElement('div');
+            imageContainer.classList.add('image-container', 'd-flex', 'justify-content-center');
+  
+            var image = document.createElement('img');
+            image.src = item.image;
+            image.classList.add('card-img-top', 'fixed-height-img');
+            image.alt = item.title;
+  
+            imageContainer.appendChild(image);
+  
+            var cardBody = document.createElement('div');
+            cardBody.classList.add('card-body');
+  
+            var title = document.createElement('h3');
+            title.classList.add('card-title', 'text-center');
+            title.textContent = item.title;
+  
+            var removeButton = document.createElement('button');
+            removeButton.classList.add('btn', 'btn-danger', 'removeFromCart');
+            removeButton.textContent = 'Remove from Basket';
+            removeButton.setAttribute('data-id', item.id);
+  
+            cardBody.appendChild(title);
+            cardBody.appendChild(removeButton);
+  
+            card.appendChild(imageContainer);
+            card.appendChild(cardBody);
+  
+            basketItem.appendChild(card);
+            basketItemsContainer.appendChild(basketItem);
+          });
+  
+          attachRemoveFromCartListeners();
+        }
+      } else {
+        basketItemsContainer.innerHTML = '<p class="text-center">Basket is empty</p>';
+      }
+    }
+  
+    function attachAddToBasketListeners() {
+      var addToBasketButtons = document.querySelectorAll('.addToBasket');
+  
+      addToBasketButtons.forEach(function(button) {
+        button.addEventListener('click', function(event) {
+          var itemId = event.target.getAttribute('data-id');
+          var itemTitle = event.target.getAttribute('data-title');
+          var itemImage = event.target.getAttribute('data-image');
+  
+          var item = {
+            id: itemId,
+            title: itemTitle,
+            image: itemImage
+          };
+  
+          addToBasket(item);
+        });
+      });
+    }
+  
+    function attachRemoveFromCartListeners() {
+      var removeButtons = document.querySelectorAll('.removeFromCart');
+  
+      removeButtons.forEach(function(button) {
+        button.addEventListener('click', removeFromBasket);
+      });
+    }
+  </script>
+   
+</body>
+
+</html>

@@ -9,7 +9,19 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
   <link rel="stylesheet" href="stylesheet.css">
-  <script type="text/javascript" src="javasheet.js"></script>
+  <style>
+    .added-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .added-item img {
+      width: 50px;
+      height: 50px;
+      margin-right: 10px;
+    }
+  </style>
 </head>
 
 <body>
@@ -56,7 +68,7 @@
               </div>
               <div class="card-body">
                 <h3 class="card-title text-center">Orgnic Sew and grow dungarees</h3>
-                <a href="#" class="btn btn-primary addToCart">Add to Basket</a>
+                <a href="#" class="btn btn-primary addToCart" data-id="1" data-name="Organic Sew and grow dungarees" data-image="https://cdn.shopify.com/s/files/1/1076/3876/products/TDS2356_1800x1800.jpg?v=1675789298">Add to Basket</a>
               </div>
             </div>
           </a>
@@ -70,7 +82,7 @@
               </div>
               <div class="card-body">
                 <h3 class="card-title text-center">Organic & Fairtrade corduroy dungarees</h3>
-                <a href="#" class="btn btn-primary addToCart">Add to Basket</a>
+                <a href="#" class="btn btn-primary addToCart" data-id="2" data-name="Organic & Fairtrade corduroy dungarees" data-image="https://cdn.shopify.com/s/files/1/0258/8147/7195/products/A22-211-VIN-2000200072OW_1800x1800.jpg?v=1675274004">Add to Basket</a>
               </div>
             </div>
           </a>
@@ -84,7 +96,7 @@
               </div>
               <div class="card-body">
                 <h3 class="card-title text-center">100% organic navy dungarees</h3>
-                <a href="#" class="btn btn-primary addToCart">Add to Basket</a>
+                <a href="#" class="btn btn-primary addToCart" data-id="3" data-name="100% organic navy dungarees" data-image="https://organic-zoo.com/cdn/shop/products/BlueNightsDungareesFront-Edit_1350x1800.jpg?v=1677265280">Add to Basket</a>
               </div>
             </div>
           </a>
@@ -109,12 +121,36 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/js/bootstrap.bundle.min.js"></script>
 <script>
-  var addToCartButtons = document.querySelectorAll('.addToCart');
-  addToCartButtons.forEach(function(button) {
-    button.addEventListener('click', function() {
-      var cartItemCount = parseInt(document.getElementById('cartItemCount').textContent);
-      document.getElementById('cartItemCount').textContent = cartItemCount + 1;
+  function addToBasket(event) {
+    event.preventDefault();
+    var itemId = event.target.getAttribute('data-id');
+    var itemName = event.target.getAttribute('data-name');
+    var itemImage = event.target.getAttribute('data-image');
+    var item = {
+      id: itemId,
+      name: itemName,
+      image: itemImage
+    };
+    var basketItems = localStorage.getItem('basketItems') || '[]';
+    var items = JSON.parse(basketItems);
+    items.push(item);
+    localStorage.setItem('basketItems', JSON.stringify(items));
+    updateCartItemCount(items.length);
+  }
+
+  function updateCartItemCount(count) {
+    document.getElementById('cartItemCount').textContent = count;
+  }
+
+  document.addEventListener('DOMContentLoaded', function() {
+    var addToCartButtons = document.querySelectorAll('.addToCart');
+    addToCartButtons.forEach(function(button) {
+      button.addEventListener('click', addToBasket);
     });
+
+    var basketItems = localStorage.getItem('basketItems');
+    var count = basketItems ? JSON.parse(basketItems).length : 0;
+    updateCartItemCount(count);
   });
 </script>
 </body>
